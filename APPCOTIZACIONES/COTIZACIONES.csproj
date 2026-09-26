@@ -92,11 +92,23 @@
     <Compile Include="Formularios\FrmCotizacion.Designer.cs">
       <DependentUpon>FrmCotizacion.cs</DependentUpon>
     </Compile>
+    <Compile Include="Formularios\FrmDetalleCotizacion.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Formularios\FrmDetalleCotizacion.Designer.cs">
+      <DependentUpon>FrmDetalleCotizacion.cs</DependentUpon>
+    </Compile>
     <Compile Include="Formularios\FrmDetalleProducto.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Formularios\FrmDetalleProducto.Designer.cs">
       <DependentUpon>FrmDetalleProducto.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Formularios\FrmEditarProducto.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Formularios\FrmEditarProducto.Designer.cs">
+      <DependentUpon>FrmEditarProducto.cs</DependentUpon>
     </Compile>
     <Compile Include="Formularios\FrmEditarTallaColor.cs">
       <SubType>Form</SubType>
@@ -186,8 +198,14 @@
     <EmbeddedResource Include="Formularios\FrmCotizacion.resx">
       <DependentUpon>FrmCotizacion.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Formularios\FrmDetalleCotizacion.resx">
+      <DependentUpon>FrmDetalleCotizacion.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Formularios\FrmDetalleProducto.resx">
       <DependentUpon>FrmDetalleProducto.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Formularios\FrmEditarProducto.resx">
+      <DependentUpon>FrmEditarProducto.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Formularios\FrmEditarTallaColor.resx">
       <DependentUpon>FrmEditarTallaColor.cs</DependentUpon>

@@ -14,7 +14,8 @@ namespace COTIZACIONES.Datos
             using (var conn = ConexionDB.ObtenerConexion())
             {
                 conn.Open();
-                using (var cmd = new SqlCommand("SELECT Id, Nombre, Documento, Telefono, Email, Direccion FROM Clientes ORDER BY Nombre", conn))
+                using (var cmd = new SqlCommand(
+                    "SELECT Id, Nombre, Documento, Telefono, Email, Direccion FROM Clientes ORDER BY Nombre", conn))
                 using (var r = cmd.ExecuteReader())
                 {
                     while (r.Read())
@@ -92,7 +93,8 @@ namespace COTIZACIONES.Datos
             using (var conn = ConexionDB.ObtenerConexion())
             {
                 conn.Open();
-                using (var cmd = new SqlCommand("SELECT Id, Codigo, Descripcion, Precio, Stock FROM Productos ORDER BY Codigo", conn))
+                using (var cmd = new SqlCommand(
+                    "SELECT Id, Codigo, Descripcion, Precio, Stock FROM Productos ORDER BY Codigo", conn))
                 using (var r = cmd.ExecuteReader())
                 {
                     while (r.Read())
@@ -153,14 +155,12 @@ namespace COTIZACIONES.Datos
             {
                 conn.Open();
 
-                // ✅ Primero eliminar los registros de Inventario asociados
                 using (var cmd = new SqlCommand("DELETE FROM Inventario WHERE ProductoId=@id", conn))
                 {
                     cmd.Parameters.AddWithValue("@id", id);
                     cmd.ExecuteNonQuery();
                 }
 
-                // ✅ Luego eliminar el producto
                 using (var cmd = new SqlCommand("DELETE FROM Productos WHERE Id=@id", conn))
                 {
                     cmd.Parameters.AddWithValue("@id", id);
@@ -169,7 +169,7 @@ namespace COTIZACIONES.Datos
             }
         }
 
-        // ================= INVENTARIO (TALLAS/COLORES) =================
+        // ================= INVENTARIO =================
         public static List<InventarioItem> ObtenerInventarioPorProducto(int productoId)
         {
             var lista = new List<InventarioItem>();
@@ -244,15 +244,12 @@ namespace COTIZACIONES.Datos
             }
         }
 
-        // ✅ NUEVO: Actualizar solo Talla y Color
         public static void ActualizarTallaColor(int id, string talla, string color)
         {
             using (var conn = ConexionDB.ObtenerConexion())
             {
                 conn.Open();
-                string q = @"UPDATE Inventario 
-                             SET Talla = @talla, Color = @color 
-                             WHERE Id = @id";
+                string q = @"UPDATE Inventario SET Talla = @talla, Color = @color WHERE Id = @id";
                 using (var cmd = new SqlCommand(q, conn))
                 {
                     cmd.Parameters.AddWithValue("@talla", (object)talla ?? DBNull.Value);
@@ -263,15 +260,12 @@ namespace COTIZACIONES.Datos
             }
         }
 
-        // ✅ NUEVO: Actualizar Talla, Color y Cantidad
         public static void ActualizarInventarioCompleto(int id, string talla, string color, int cantidad)
         {
             using (var conn = ConexionDB.ObtenerConexion())
             {
                 conn.Open();
-                string q = @"UPDATE Inventario 
-                             SET Talla = @talla, Color = @color, Cantidad = @cantidad 
-                             WHERE Id = @id";
+                string q = @"UPDATE Inventario SET Talla = @talla, Color = @color, Cantidad = @cantidad WHERE Id = @id";
                 using (var cmd = new SqlCommand(q, conn))
                 {
                     cmd.Parameters.AddWithValue("@talla", (object)talla ?? DBNull.Value);

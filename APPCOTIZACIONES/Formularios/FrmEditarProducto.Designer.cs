@@ -1,6 +1,6 @@
 ﻿namespace COTIZACIONES.Formularios
 {
-    partial class FrmProductos
+    partial class FrmEditarProducto
     {
         private System.ComponentModel.IContainer components = null;
 
@@ -12,6 +12,7 @@
 
         private void InitializeComponent()
         {
+            this.lblTitulo = new System.Windows.Forms.Label();
             this.gbDatos = new System.Windows.Forms.GroupBox();
             this.lblCodigo = new System.Windows.Forms.Label();
             this.txtCodigo = new System.Windows.Forms.TextBox();
@@ -25,25 +26,25 @@
             this.cmbTalla = new System.Windows.Forms.ComboBox();
             this.lblColor = new System.Windows.Forms.Label();
             this.cmbColor = new System.Windows.Forms.ComboBox();
-            this.btnGuardarTodo = new System.Windows.Forms.Button();
+            this.btnAgregarTC = new System.Windows.Forms.Button();
             this.dgvTallasColores = new System.Windows.Forms.DataGridView();
             this.colTallaTC = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.colColorTC = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.btnQuitarTC = new System.Windows.Forms.Button();
-            this.btnLimpiar = new System.Windows.Forms.Button();
-            this.btnEditar = new System.Windows.Forms.Button();
-            this.btnEliminar = new System.Windows.Forms.Button();
-            this.btnCerrar = new System.Windows.Forms.Button();
-            this.dgvProductos = new System.Windows.Forms.DataGridView();
-            this.colProdId = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colProdCodigo = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colProdDescripcion = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colProdPrecio = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colProdStock = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.btnGuardar = new System.Windows.Forms.Button();
+            this.btnCancelar = new System.Windows.Forms.Button();
             this.gbDatos.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvTallasColores)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvProductos)).BeginInit();
             this.SuspendLayout();
+
+            // lblTitulo
+            this.lblTitulo.Font = new System.Drawing.Font("Segoe UI", 14F, System.Drawing.FontStyle.Bold);
+            this.lblTitulo.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(105)))), ((int)(((byte)(56)))), ((int)(((byte)(62)))));
+            this.lblTitulo.Location = new System.Drawing.Point(15, 10);
+            this.lblTitulo.Name = "lblTitulo";
+            this.lblTitulo.Size = new System.Drawing.Size(700, 30);
+            this.lblTitulo.TabIndex = 0;
+            this.lblTitulo.Text = "✏️ Editando producto";
 
             // ============================
             // gbDatos
@@ -60,15 +61,15 @@
             this.gbDatos.Controls.Add(this.cmbTalla);
             this.gbDatos.Controls.Add(this.lblColor);
             this.gbDatos.Controls.Add(this.cmbColor);
-            this.gbDatos.Controls.Add(this.btnGuardarTodo);
+            this.gbDatos.Controls.Add(this.btnAgregarTC);
             this.gbDatos.Controls.Add(this.dgvTallasColores);
             this.gbDatos.Controls.Add(this.btnQuitarTC);
             this.gbDatos.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
             this.gbDatos.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(105)))), ((int)(((byte)(56)))), ((int)(((byte)(62)))));
-            this.gbDatos.Location = new System.Drawing.Point(12, 12);
+            this.gbDatos.Location = new System.Drawing.Point(12, 50);
             this.gbDatos.Name = "gbDatos";
-            this.gbDatos.Size = new System.Drawing.Size(760, 320);
-            this.gbDatos.TabIndex = 0;
+            this.gbDatos.Size = new System.Drawing.Size(760, 380);
+            this.gbDatos.TabIndex = 1;
             this.gbDatos.TabStop = false;
             this.gbDatos.Text = "Datos del Producto";
 
@@ -166,19 +167,19 @@
             this.cmbColor.TabIndex = 11;
             this.cmbColor.Items.AddRange(new object[] { "Negro", "Blanco", "Rojo", "Azul", "Verde", "Gris", "Beige", "Plateado" });
 
-            // btnGuardarTodo
-            this.btnGuardarTodo.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(105)))), ((int)(((byte)(56)))), ((int)(((byte)(62)))));
-            this.btnGuardarTodo.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnGuardarTodo.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnGuardarTodo.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
-            this.btnGuardarTodo.ForeColor = System.Drawing.Color.White;
-            this.btnGuardarTodo.Location = new System.Drawing.Point(450, 105);
-            this.btnGuardarTodo.Name = "btnGuardarTodo";
-            this.btnGuardarTodo.Size = new System.Drawing.Size(295, 67);
-            this.btnGuardarTodo.TabIndex = 12;
-            this.btnGuardarTodo.Text = "💾 GUARDAR PRODUCTO COMPLETO";
-            this.btnGuardarTodo.UseVisualStyleBackColor = false;
-            this.btnGuardarTodo.Click += new System.EventHandler(this.btnGuardarTodo_Click);
+            // btnAgregarTC
+            this.btnAgregarTC.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(16)))), ((int)(((byte)(185)))), ((int)(((byte)(129)))));
+            this.btnAgregarTC.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnAgregarTC.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnAgregarTC.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
+            this.btnAgregarTC.ForeColor = System.Drawing.Color.White;
+            this.btnAgregarTC.Location = new System.Drawing.Point(450, 105);
+            this.btnAgregarTC.Name = "btnAgregarTC";
+            this.btnAgregarTC.Size = new System.Drawing.Size(295, 28);
+            this.btnAgregarTC.TabIndex = 12;
+            this.btnAgregarTC.Text = "➕ AGREGAR TALLA/COLOR";
+            this.btnAgregarTC.UseVisualStyleBackColor = false;
+            this.btnAgregarTC.Click += new System.EventHandler(this.btnAgregarTC_Click);
 
             // dgvTallasColores
             this.dgvTallasColores.AllowUserToAddRows = false;
@@ -189,12 +190,12 @@
             this.dgvTallasColores.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
                 this.colTallaTC,
                 this.colColorTC});
-            this.dgvTallasColores.Location = new System.Drawing.Point(15, 180);
+            this.dgvTallasColores.Location = new System.Drawing.Point(15, 150);
             this.dgvTallasColores.Name = "dgvTallasColores";
             this.dgvTallasColores.ReadOnly = true;
             this.dgvTallasColores.RowHeadersVisible = false;
             this.dgvTallasColores.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvTallasColores.Size = new System.Drawing.Size(615, 120);
+            this.dgvTallasColores.Size = new System.Drawing.Size(615, 210);
             this.dgvTallasColores.TabIndex = 13;
 
             // colTallaTC
@@ -213,144 +214,64 @@
             this.btnQuitarTC.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnQuitarTC.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
             this.btnQuitarTC.ForeColor = System.Drawing.Color.White;
-            this.btnQuitarTC.Location = new System.Drawing.Point(640, 180);
+            this.btnQuitarTC.Location = new System.Drawing.Point(640, 150);
             this.btnQuitarTC.Name = "btnQuitarTC";
-            this.btnQuitarTC.Size = new System.Drawing.Size(105, 120);
+            this.btnQuitarTC.Size = new System.Drawing.Size(105, 210);
             this.btnQuitarTC.TabIndex = 14;
             this.btnQuitarTC.Text = "🗑️\r\nQUITAR";
             this.btnQuitarTC.UseVisualStyleBackColor = false;
             this.btnQuitarTC.Click += new System.EventHandler(this.btnQuitarTC_Click);
 
-            // ============================
-            // BOTONES INFERIORES
-            // ============================
+            // btnGuardar
+            this.btnGuardar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(105)))), ((int)(((byte)(56)))), ((int)(((byte)(62)))));
+            this.btnGuardar.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnGuardar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnGuardar.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Bold);
+            this.btnGuardar.ForeColor = System.Drawing.Color.White;
+            this.btnGuardar.Location = new System.Drawing.Point(400, 445);
+            this.btnGuardar.Name = "btnGuardar";
+            this.btnGuardar.Size = new System.Drawing.Size(180, 40);
+            this.btnGuardar.TabIndex = 15;
+            this.btnGuardar.Text = "💾 GUARDAR";
+            this.btnGuardar.UseVisualStyleBackColor = false;
+            this.btnGuardar.Click += new System.EventHandler(this.btnGuardar_Click);
 
-            // btnLimpiar
-            this.btnLimpiar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(38)))), ((int)(((byte)(38)))));
-            this.btnLimpiar.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnLimpiar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnLimpiar.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
-            this.btnLimpiar.ForeColor = System.Drawing.Color.White;
-            this.btnLimpiar.Location = new System.Drawing.Point(12, 345);
-            this.btnLimpiar.Name = "btnLimpiar";
-            this.btnLimpiar.Size = new System.Drawing.Size(120, 32);
-            this.btnLimpiar.TabIndex = 15;
-            this.btnLimpiar.Text = "🧹 LIMPIAR";
-            this.btnLimpiar.UseVisualStyleBackColor = false;
-            this.btnLimpiar.Click += new System.EventHandler(this.btnLimpiar_Click);
+            // btnCancelar
+            this.btnCancelar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(93)))), ((int)(((byte)(90)))), ((int)(((byte)(85)))));
+            this.btnCancelar.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnCancelar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnCancelar.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Bold);
+            this.btnCancelar.ForeColor = System.Drawing.Color.White;
+            this.btnCancelar.Location = new System.Drawing.Point(592, 445);
+            this.btnCancelar.Name = "btnCancelar";
+            this.btnCancelar.Size = new System.Drawing.Size(180, 40);
+            this.btnCancelar.TabIndex = 16;
+            this.btnCancelar.Text = "❌ CANCELAR";
+            this.btnCancelar.UseVisualStyleBackColor = false;
+            this.btnCancelar.Click += new System.EventHandler(this.btnCancelar_Click);
 
-            // btnEditar
-            this.btnEditar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(166)))), ((int)(((byte)(165)))), ((int)(((byte)(160)))));
-            this.btnEditar.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnEditar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnEditar.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
-            this.btnEditar.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(93)))), ((int)(((byte)(90)))), ((int)(((byte)(85)))));
-            this.btnEditar.Location = new System.Drawing.Point(142, 345);
-            this.btnEditar.Name = "btnEditar";
-            this.btnEditar.Size = new System.Drawing.Size(120, 32);
-            this.btnEditar.TabIndex = 16;
-            this.btnEditar.Text = "✏️ EDITAR";
-            this.btnEditar.UseVisualStyleBackColor = false;
-            this.btnEditar.Click += new System.EventHandler(this.btnEditar_Click);
-
-            // btnEliminar
-            this.btnEliminar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(38)))), ((int)(((byte)(38)))));
-            this.btnEliminar.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnEliminar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnEliminar.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
-            this.btnEliminar.ForeColor = System.Drawing.Color.White;
-            this.btnEliminar.Location = new System.Drawing.Point(272, 345);
-            this.btnEliminar.Name = "btnEliminar";
-            this.btnEliminar.Size = new System.Drawing.Size(120, 32);
-            this.btnEliminar.TabIndex = 17;
-            this.btnEliminar.Text = "🗑️ ELIMINAR";
-            this.btnEliminar.UseVisualStyleBackColor = false;
-            this.btnEliminar.Click += new System.EventHandler(this.btnEliminar_Click);
-
-            // btnCerrar
-            this.btnCerrar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(93)))), ((int)(((byte)(90)))), ((int)(((byte)(85)))));
-            this.btnCerrar.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnCerrar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnCerrar.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
-            this.btnCerrar.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(254)))), ((int)(((byte)(254)))), ((int)(((byte)(254)))));
-            this.btnCerrar.Location = new System.Drawing.Point(652, 345);
-            this.btnCerrar.Name = "btnCerrar";
-            this.btnCerrar.Size = new System.Drawing.Size(120, 32);
-            this.btnCerrar.TabIndex = 18;
-            this.btnCerrar.Text = "❌ CERRAR";
-            this.btnCerrar.UseVisualStyleBackColor = false;
-            this.btnCerrar.Click += new System.EventHandler(this.btnCerrar_Click);
-
-            // dgvProductos
-            this.dgvProductos.AllowUserToAddRows = false;
-            this.dgvProductos.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            this.dgvProductos.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(254)))), ((int)(((byte)(254)))), ((int)(((byte)(254)))));
-            this.dgvProductos.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvProductos.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-                this.colProdId,
-                this.colProdCodigo,
-                this.colProdDescripcion,
-                this.colProdPrecio,
-                this.colProdStock});
-            this.dgvProductos.Location = new System.Drawing.Point(12, 390);
-            this.dgvProductos.Name = "dgvProductos";
-            this.dgvProductos.ReadOnly = true;
-            this.dgvProductos.RowHeadersVisible = false;
-            this.dgvProductos.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvProductos.Size = new System.Drawing.Size(760, 210);
-            this.dgvProductos.TabIndex = 19;
-
-            // colProdId
-            this.colProdId.HeaderText = "ID";
-            this.colProdId.Name = "colProdId";
-            this.colProdId.ReadOnly = true;
-            this.colProdId.Visible = false;
-
-            // colProdCodigo
-            this.colProdCodigo.HeaderText = "CÓDIGO";
-            this.colProdCodigo.Name = "colProdCodigo";
-            this.colProdCodigo.ReadOnly = true;
-
-            // colProdDescripcion
-            this.colProdDescripcion.HeaderText = "DESCRIPCIÓN";
-            this.colProdDescripcion.Name = "colProdDescripcion";
-            this.colProdDescripcion.ReadOnly = true;
-
-            // colProdPrecio
-            this.colProdPrecio.HeaderText = "PRECIO";
-            this.colProdPrecio.Name = "colProdPrecio";
-            this.colProdPrecio.ReadOnly = true;
-
-            // colProdStock
-            this.colProdStock.HeaderText = "STOCK";
-            this.colProdStock.Name = "colProdStock";
-            this.colProdStock.ReadOnly = true;
-
-            // FrmProductos
+            // FrmEditarProducto
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(254)))), ((int)(((byte)(254)))), ((int)(((byte)(254)))));
-            this.ClientSize = new System.Drawing.Size(784, 620);
+            this.ClientSize = new System.Drawing.Size(784, 500);
+            this.Controls.Add(this.lblTitulo);
             this.Controls.Add(this.gbDatos);
-            this.Controls.Add(this.btnLimpiar);
-            this.Controls.Add(this.btnEditar);
-            this.Controls.Add(this.btnEliminar);
-            this.Controls.Add(this.btnCerrar);
-            this.Controls.Add(this.dgvProductos);
+            this.Controls.Add(this.btnGuardar);
+            this.Controls.Add(this.btnCancelar);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.MaximizeBox = false;
-            this.Name = "FrmProductos";
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Gestión de Productos";
-            this.Load += new System.EventHandler(this.FrmProductos_Load);
-
+            this.MinimizeBox = false;
+            this.Name = "FrmEditarProducto";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
+            this.Text = "Editar Producto";
             this.gbDatos.ResumeLayout(false);
             this.gbDatos.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvTallasColores)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvProductos)).EndInit();
             this.ResumeLayout(false);
         }
 
+        private System.Windows.Forms.Label lblTitulo;
         private System.Windows.Forms.GroupBox gbDatos;
         private System.Windows.Forms.Label lblCodigo;
         private System.Windows.Forms.Label lblDescripcion;
@@ -364,20 +285,12 @@
         private System.Windows.Forms.ComboBox cmbTalla;
         private System.Windows.Forms.Label lblColor;
         private System.Windows.Forms.ComboBox cmbColor;
-        private System.Windows.Forms.Button btnGuardarTodo;
+        private System.Windows.Forms.Button btnAgregarTC;
         private System.Windows.Forms.DataGridView dgvTallasColores;
         private System.Windows.Forms.DataGridViewTextBoxColumn colTallaTC;
         private System.Windows.Forms.DataGridViewTextBoxColumn colColorTC;
         private System.Windows.Forms.Button btnQuitarTC;
-        private System.Windows.Forms.Button btnLimpiar;
-        private System.Windows.Forms.Button btnEditar;
-        private System.Windows.Forms.Button btnEliminar;
-        private System.Windows.Forms.Button btnCerrar;
-        private System.Windows.Forms.DataGridView dgvProductos;
-        private System.Windows.Forms.DataGridViewTextBoxColumn colProdId;
-        private System.Windows.Forms.DataGridViewTextBoxColumn colProdCodigo;
-        private System.Windows.Forms.DataGridViewTextBoxColumn colProdDescripcion;
-        private System.Windows.Forms.DataGridViewTextBoxColumn colProdPrecio;
-        private System.Windows.Forms.DataGridViewTextBoxColumn colProdStock;
+        private System.Windows.Forms.Button btnGuardar;
+        private System.Windows.Forms.Button btnCancelar;
     }
 }

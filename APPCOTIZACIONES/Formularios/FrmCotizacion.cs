@@ -18,14 +18,15 @@ namespace COTIZACIONES.Formularios
         private List<Producto> _productos;
         private string _numero;
 
+        // ✅ NUEVO: producto "libre" cuando el usuario escribe uno que no está en el catálogo
+        private Producto _productoLibre = null;
+
         public FrmCotizacion(Usuario usuario)
         {
-            InitializeComponent();   // ✅ ESTA LÍNEA ES CLAVE
+            InitializeComponent();
             _usuario = usuario;
 
             _empresa = EmpresaService.ObtenerConfiguracion();
-
-            // ✅ Verificar que la configuración no sea null
             if (_empresa == null)
             {
                 _empresa = new EmpresaConfig
@@ -40,7 +41,6 @@ namespace COTIZACIONES.Formularios
 
             _numero = CotizacionService.GenerarNumero();
 
-            // Ahora sí los labels existen porque InitializeComponent los creó
             lblEmpresa.Text = _empresa.NombreEmpresa ?? "MI EMPRESA";
             lblNumero.Text = "N°: " + _numero;
             numIGV.Value = _empresa.PorcentajeIGV > 0 ? _empresa.PorcentajeIGV : 18m;
@@ -51,19 +51,14 @@ namespace COTIZACIONES.Formularios
             ActualizarTotales();
             CargarTallasColores();
 
-            try
-            {
-                TemaService.AplicarTemaAFormulario(this);
-            }
-            catch { }
+            try { TemaService.AplicarTemaAFormulario(this); } catch { }
         }
 
-        // ✅ MÉTODO QUE EL DISEÑADOR SOLICITA
-        private void FrmCotizacion_Load(object sender, EventArgs e)
-        {
-            // vacío — el diseñador lo requiere
-        }
+        private void FrmCotizacion_Load(object sender, EventArgs e) { }
 
+        // ==========================================================
+        // CARGAR COMBOS
+        // ==========================================================
         private void CargarCombos()
         {
             _clientes = Repositorio.ObtenerClientes();
@@ -76,11 +71,51 @@ namespace COTIZACIONES.Formularios
             cmbProducto.DataSource = _productos;
             cmbProducto.DisplayMember = "ToString";
 
+            // ✅ Permitir escribir productos que no están en el catálogo
+            cmbProducto.DropDownStyle = ComboBoxStyle.DropDown;
+            cmbProducto.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
+            cmbProducto.AutoCompleteSource = AutoCompleteSource.ListItems;
+
             cmbProducto.SelectedIndexChanged += (s, e) =>
             {
                 if (cmbProducto.SelectedItem is Producto p)
                 {
+                    _productoLibre = null;
                     txtPrecio.Text = p.Precio.ToString("0.00");
+                    CargarTallasColores();
+                }
+            };
+
+            // ✅ Cuando el usuario escribe algo que no está en la lista
+            cmbProducto.TextUpdate += (s, e) =>
+            {
+                string texto = cmbProducto.Text.Trim();
+                if (string.IsNullOrEmpty(texto))
+                {
+                    _productoLibre = null;
+                    return;
+                }
+
+                // Si coincide exactamente con uno del catálogo, no es libre
+                var encontrado = _productos.FirstOrDefault(p =>
+                    p.ToString().Equals(texto, StringComparison.OrdinalIgnoreCase));
+
+                if (encontrado != null)
+                {
+                    _productoLibre = null;
+                    CargarTallasColores();
+                }
+                else
+                {
+                    // Es un producto libre
+                    _productoLibre = new Producto
+                    {
+                        Id = 0,
+                        Codigo = "LIBRE",
+                        Descripcion = texto,
+                        Precio = 0m,
+                        Stock = 0
+                    };
                     CargarTallasColores();
                 }
             };
@@ -89,6 +124,9 @@ namespace COTIZACIONES.Formularios
                 txtPrecio.Text = _productos[0].Precio.ToString("0.00");
         }
 
+        // ==========================================================
+        // CARGAR TALLAS Y COLORES
+        // ==========================================================
         private void CargarTallasColores()
         {
             string tallaActual = cmbTalla.Text;
@@ -96,6 +134,20 @@ namespace COTIZACIONES.Formularios
 
             cmbTalla.Items.Clear();
             cmbColor.Items.Clear();
+
+            // Si es producto libre → tallas y colores genéricos editables
+            if (_productoLibre != null)
+            {
+                var tallasGen = new[] { "XS", "S", "M", "L", "XL", "XXL", "Única" };
+                var coloresGen = new[] { "Negro", "Blanco", "Rojo", "Azul", "Verde", "Gris", "Beige" };
+
+                foreach (var t in tallasGen) cmbTalla.Items.Add(t);
+                foreach (var c in coloresGen) cmbColor.Items.Add(c);
+
+                cmbTalla.Text = tallaActual;
+                cmbColor.Text = colorActual;
+                return;
+            }
 
             if (!(cmbProducto.SelectedItem is Producto p))
                 return;
@@ -138,14 +190,46 @@ namespace COTIZACIONES.Formularios
                 numCantidad.Value += 1;
         }
 
+        // ==========================================================
+        // AGREGAR A LA LISTA
+        // ==========================================================
         private void btnAgregar_Click(object sender, EventArgs e)
         {
-            if (!(cmbProducto.SelectedItem is Producto p))
+            Producto p = null;
+
+            // ✅ Si el usuario escribió un producto libre
+            if (_productoLibre != null)
             {
-                MessageBox.Show("Seleccione un producto.", "Aviso",
-                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;
+                p = _productoLibre;
+                p.Descripcion = cmbProducto.Text.Trim();
             }
+            else if (cmbProducto.SelectedItem is Producto seleccionado)
+            {
+                p = seleccionado;
+            }
+            else
+            {
+                // No seleccionó ni escribió nada
+                string texto = cmbProducto.Text.Trim();
+                if (string.IsNullOrEmpty(texto))
+                {
+                    MessageBox.Show("Seleccione o escriba un producto.", "Aviso",
+                        MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+
+                // Crear producto libre con lo que escribió
+                p = new Producto
+                {
+                    Id = 0,
+                    Codigo = "LIBRE",
+                    Descripcion = texto,
+                    Precio = 0m,
+                    Stock = 0
+                };
+                _productoLibre = p;
+            }
+
             if (!decimal.TryParse(txtPrecio.Text, out decimal precio) || precio <= 0)
             {
                 MessageBox.Show("Precio inválido.", "Aviso",
@@ -160,24 +244,32 @@ namespace COTIZACIONES.Formularios
             if (string.IsNullOrEmpty(talla)) talla = "—";
             if (string.IsNullOrEmpty(color)) color = "—";
 
+            bool esLibre = _productoLibre != null || p.Id == 0;
+
             var existente = _items.FirstOrDefault(x =>
                 x.ProductoId == p.Id &&
+                x.Descripcion == p.Descripcion &&
                 (x.Talla ?? "—") == talla &&
                 (x.Color ?? "—") == color);
 
             if (existente != null)
+            {
                 existente.Cantidad += cant;
+            }
             else
+            {
                 _items.Add(new DetalleCotizacion
                 {
                     ProductoId = p.Id,
-                    Codigo = p.Codigo,
+                    Codigo = esLibre ? "LIBRE" : p.Codigo,
                     Descripcion = p.Descripcion,
                     Talla = talla,
                     Color = color,
                     Precio = precio,
-                    Cantidad = cant
+                    Cantidad = cant,
+                    EsLibre = esLibre
                 });
+            }
 
             Refrescar();
             numCantidad.Value = 1;
@@ -185,6 +277,9 @@ namespace COTIZACIONES.Formularios
             cmbColor.Text = "";
         }
 
+        // ==========================================================
+        // REFRESCAR TABLA
+        // ==========================================================
         private void Refrescar()
         {
             dgvDetalle.DataSource = null;
@@ -228,11 +323,13 @@ namespace COTIZACIONES.Formularios
             if (dgvDetalle.CurrentRow == null) return;
 
             string codigo = dgvDetalle.CurrentRow.Cells["Codigo"].Value?.ToString();
+            string desc = dgvDetalle.CurrentRow.Cells["Descripcion"].Value?.ToString();
             string talla = dgvDetalle.CurrentRow.Cells["Talla"].Value?.ToString();
             string color = dgvDetalle.CurrentRow.Cells["Color"].Value?.ToString();
 
             var item = _items.FirstOrDefault(x =>
                 x.Codigo == codigo &&
+                x.Descripcion == desc &&
                 (x.Talla ?? "—") == talla &&
                 (x.Color ?? "—") == color);
 
@@ -283,8 +380,10 @@ namespace COTIZACIONES.Formularios
         private void Reiniciar()
         {
             _items.Clear();
+            _productoLibre = null;
             Refrescar();
             txtObservaciones.Clear();
+            cmbProducto.Text = "";
             cmbTalla.Text = "";
             cmbColor.Text = "";
             numCantidad.Value = 1;

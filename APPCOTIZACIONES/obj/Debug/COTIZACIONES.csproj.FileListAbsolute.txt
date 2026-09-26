@@ -32,3 +32,5 @@ C:\Users\AdrianB\Documents\DOCUMENTOS\C#.NET\APPCOTIZACIONES\APPCOTIZACIONES\obj
 C:\Users\AdrianB\Documents\DOCUMENTOS\C#.NET\APPCOTIZACIONES\APPCOTIZACIONES\obj\Debug\APPCOTIZACIONES.pdb
 C:\Users\AdrianB\Documents\DOCUMENTOS\C#.NET\APPCOTIZACIONES\APPCOTIZACIONES\obj\Debug\COTIZACIONES.Formularios.FrmEditarTallaColor.resources
 C:\Users\AdrianB\Documents\DOCUMENTOS\C#.NET\APPCOTIZACIONES\APPCOTIZACIONES\obj\Debug\COTIZACIONES.Formularios.FrmSelectorTallaColor.resources
+C:\Users\AdrianB\Documents\DOCUMENTOS\C#.NET\APPCOTIZACIONES\APPCOTIZACIONES\obj\Debug\COTIZACIONES.Formularios.FrmDetalleCotizacion.resources
+C:\Users\AdrianB\Documents\DOCUMENTOS\C#.NET\APPCOTIZACIONES\APPCOTIZACIONES\obj\Debug\COTIZACIONES.Formularios.FrmEditarProducto.resources

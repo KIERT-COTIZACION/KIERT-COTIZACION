@@ -188,11 +188,12 @@ namespace COTIZACIONES.Servicios
             });
 
             // ==================================================
-            // TABLA PRODUCTOS CON TALLA Y COLOR
+            // TABLA PRODUCTOS CON TALLA Y COLOR (con wrap)
             // ==================================================
             var tabla = new PdfPTable(8) { WidthPercentage = 100 };
             tabla.SetWidths(new float[] { 4f, 11f, 26f, 8f, 12f, 8f, 12f, 15f });
             tabla.SpacingAfter = 10f;
+            tabla.HeaderRows = 1; // ✅ Repetir cabecera si la tabla pasa a otra página
 
             string[] headers = { "#", "CÓDIGO", "DESCRIPCIÓN", "TALLA", "COLOR", "CANT.", "P. UNIT.", "SUBTOTAL" };
             foreach (var h in headers)
@@ -217,9 +218,23 @@ namespace COTIZACIONES.Servicios
 
                 tabla.AddCell(CeldaDato(i.ToString(), fNormal, Element.ALIGN_CENTER, bgFila));
                 tabla.AddCell(CeldaDato(it.Codigo ?? "-", fNormal, Element.ALIGN_CENTER, bgFila));
-                tabla.AddCell(CeldaDato(it.Descripcion ?? "-", fNormal, Element.ALIGN_LEFT, bgFila));
-                tabla.AddCell(CeldaDato(it.Talla ?? "—", fNormal, Element.ALIGN_CENTER, bgFila));   // ✅ TALLA
-                tabla.AddCell(CeldaDato(it.Color ?? "—", fNormal, Element.ALIGN_CENTER, bgFila));   // ✅ COLOR
+
+                // ✅ Descripción con wrap para que baje de línea
+                var celdaDesc = new PdfPCell(new Phrase(it.Descripcion ?? "-", fNormal))
+                {
+                    HorizontalAlignment = Element.ALIGN_LEFT,
+                    VerticalAlignment = Element.ALIGN_MIDDLE,
+                    Padding = 5f,
+                    Border = Rectangle.BOTTOM_BORDER,
+                    BorderColor = new BaseColor(230, 230, 230),
+                    BorderWidth = 0.3f,
+                    BackgroundColor = bgFila,
+                    MinimumHeight = 20f
+                };
+                tabla.AddCell(celdaDesc);
+
+                tabla.AddCell(CeldaDato(it.Talla ?? "—", fNormal, Element.ALIGN_CENTER, bgFila));
+                tabla.AddCell(CeldaDato(it.Color ?? "—", fNormal, Element.ALIGN_CENTER, bgFila));
                 tabla.AddCell(CeldaDato(it.Cantidad.ToString(), fNormal, Element.ALIGN_CENTER, bgFila));
                 tabla.AddCell(CeldaDato($"{empresa.Moneda} {it.Precio:F2}", fNormal, Element.ALIGN_RIGHT, bgFila));
                 tabla.AddCell(CeldaDato($"{empresa.Moneda} {it.Subtotal:F2}", fNegrita, Element.ALIGN_RIGHT, bgFila));
